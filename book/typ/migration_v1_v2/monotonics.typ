@@ -1,0 +1,28 @@
+#import "../config.typ": *
+
+#h1((en: [Migrating to `rtic-monotonics`]
+), offset: whole)
+
+In previous versions of `rtic`, monotonics were an integral, tightly
+coupled part of the `#[rtic::app]`. In this new version,
+#link("https://github.com/rtic-rs/rtic")[`rtic-monotonics`] provides
+them in a more decoupled way.
+
+The `#[monotonic]` attribute is no longer used. Instead, you use a
+`create_X_token` from
+#link("https://github.com/rtic-rs/rtic")[`rtic-monotonics`]. An
+invocation of this macro returns an interrupt registration token, which
+can be used to construct an instance of your desired monotonic.
+
+`spawn_after` and `spawn_at` are no longer available. Instead, you use
+the async functions `delay` and `delay_until` provided by
+implementations of the `rtic_time::Monotonic` trait, available through
+#link("https://github.com/rtic-rs/rtic")[`rtic-monotonics`].
+
+Check out the #link("./complete_example.md")[code example] for an
+overview of the required changes.
+
+For more information on current monotonic implementations, see
+#link("https://docs.rs/rtic-monotonics")[the `rtic-monotonics` documentation],
+and
+#link("https://github.com/rtic-rs/rtic/tree/master/examples")[the examples].
