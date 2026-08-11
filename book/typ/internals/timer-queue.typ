@@ -250,29 +250,20 @@ mod app {
 ```
 
 The ceiling analysis would go like this:
-
 - `foo` (prio = 3) and `baz` (prio = 1) are `schedule`-able task so the
-  `SysTick` must run at the highest priority between these two, that is
-  `3`.
-
+  `SysTick` must run at the highest priority between these two, that is `3`.
 - `foo::Spawn` (prio = 3) and `bar::Schedule` (prio = 2) contend over
-  the consumer endpoint of `baz_FQ`\; this leads to a priority ceiling
-  of `3`.
-
+  the consumer endpoint of `baz_FQ`\; this leads to a priority ceiling of `3`.
 - `bar::Schedule` (prio = 2) has exclusive access over the consumer
   endpoint of `foo_FQ`\; thus the priority ceiling of `foo_FQ` is
   effectively `2`.
-
 - `SysTick` (prio = 3) and `bar::Schedule` (prio = 2) contend over the
   timer queue `TQ`\; this leads to a priority ceiling of `3`.
-
 - `SysTick` (prio = 3) and `foo::Spawn` (prio = 3) both have lock-free
   access to the ready queue `RQ3`, which holds `foo` entries; thus the
   priority ceiling of `RQ3` is effectively `3`.
-
 - The `SysTick` has exclusive access to the ready queue `RQ1`, which
-  holds `baz` entries; thus the priority ceiling of `RQ1` is effectively
-  `3`.
+  holds `baz` entries; thus the priority ceiling of `RQ1` is effectively `3`.
 
 = Changes in the `spawn` implementation
 

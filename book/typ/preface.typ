@@ -80,7 +80,6 @@ framework. The SRP model itself extends on
 #link("https://ieeexplore.ieee.org/document/57058")[Priority Inheritance Protocols],
 and provides a set of outstanding properties for single core scheduling.
 To name a few:
-
 - preemptive deadlock and race-free scheduling
 - resource efficiency
   - tasks execute on a single shared stack

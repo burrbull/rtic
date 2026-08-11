@@ -49,7 +49,7 @@ jobs:
           typst compile book/typ/book.typ --root=. --input lang=en --input target=pdf book/en/book/book_en.pdf
 
       - name: Check links
-        run: linkchecker book
+        run: linkchecker book/en/book
 
       - name: Deploy book
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}

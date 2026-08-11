@@ -31,7 +31,6 @@ The trait documents the requirements for each method. There are
 reference implementations available in
 #link("https://github.com/rtic-rs/rtic/blob/master/rtic-monotonics")[`rtic-monotonics`]
 that can be used for inspiration.
-
 - #link("https://github.com/rtic-rs/rtic/blob/master/rtic-monotonics/src/systick.rs")[`Systick based`],
   runs at a fixed interrupt (core tick) rate - simple, but comes with
   some overhead and can only be used while the core is running

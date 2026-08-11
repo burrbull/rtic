@@ -397,13 +397,10 @@ mod app {
 ```
 
 This is how the ceiling analysis would go:
-
 - `idle` (prio = 0) and `baz` (prio = 2) contend for the consumer
   endpoint of `foo_FQ`\; this leads to a priority ceiling of `2`.
-
 - `idle` (prio = 0) and `quux` (prio = 3) contend for the consumer
   endpoint of `bar_FQ`\; this leads to a priority ceiling of `3`.
-
 - `idle` (prio = 0), `baz` (prio = 2) and `quux` (prio = 3) all contend
   for the producer endpoint of `RQ1`\; this leads to a priority ceiling
   of `3`

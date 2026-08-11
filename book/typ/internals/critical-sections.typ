@@ -144,7 +144,6 @@ race. On the Cortex-M architecture the dynamic priority can be changed
 by writing to the `BASEPRI` register.
 
 The semantics of the `BASEPRI` register are as follows:
-
 - Writing a value of `0` to `BASEPRI` disables its functionality.
 - Writing a non-zero value to `BASEPRI` changes the priority level
   required for interrupt preemption. However, this only has an effect

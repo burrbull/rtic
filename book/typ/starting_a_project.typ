@@ -26,7 +26,6 @@ Even though RTIC was initially developed for ARM Cortex-M, it is
 possible to use RTIC on RISC-V devices. However, the RISC-V ecosystem is
 more heterogeneous. To tackle this issue, currently, RTIC implements
 three different backends:
-
 - #strong[`riscv-esp32c3-backend`]: This backend provides support for
   the ESP32-C3 SoC. In these devices, RTIC is very similar to its
   Cortex-M counterpart.
