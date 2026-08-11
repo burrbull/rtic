@@ -1,5 +1,5 @@
 #import "config.typ": *
-#import "@preview/typbook:0.1.0": book
+#import "../../typbook/lib.typ": book
 
 #set figure.caption(position: top)
 
