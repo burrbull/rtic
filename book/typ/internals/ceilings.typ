@@ -3,7 +3,7 @@
 #h1((en: [Ceiling analysis]
 ), offset: whole)
 
-A resource #emph[priority ceiling], or just #emph[ceiling], is the
+A resource #emph[priority ceiling], or just _ceiling_, is the
 dynamic priority that any task must have to safely access the resource
 memory. Ceiling analysis is relatively simple but critical to the memory
 safety of RTIC applications.

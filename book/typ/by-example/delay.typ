@@ -25,14 +25,15 @@ documented in the
 #link("https://docs.rs/rtic-monotonics/latest/rtic_monotonics/#modules")[crate docs of the individual `rtic-monotonics`].
 
 = Delay
-<delay>
-```rust
-...
-{{#include ../../../../examples/lm3s6965/examples/async-timeout.rs:init}}
-        ...
-```
 
-A #emph[software] task can `await` the delay to expire:
+#include-code(
+    prefix: "...\n",
+    "../../examples/lm3s6965/examples/async-timeout.rs",
+    anchor: "init",
+    suffix: "\n        ...",
+)
+
+A _software_ task can `await` the delay to expire:
 
 ```rust
 #[task]
@@ -44,27 +45,23 @@ async fn foo(_cx: foo::Context) {
 ```
 
 A complete example
-```rust
-{{#include ../../../../examples/lm3s6965/examples/async-delay.rs}}
-```
+#include-code("../../examples/lm3s6965/examples/async-delay.rs")
 
-```console
+```shell
 $ cargo xtask qemu --verbose --example async-delay
 ```
 
-```console
-{{#include ../../../../ci/expected/lm3s6965/async-delay.run}}
-```
+#include-code("../../ci/expected/lm3s6965/async-delay.run", lang: "shell")
 
 #quote(block: true)[
 Interested in contributing new implementations of
 #link("https://docs.rs/rtic-time/latest/rtic_time/trait.Monotonic.html")[`Monotonic`],
 or more information about the inner workings of monotonics? Check out
-the #link("../monotonic_impl.md")[Implementing a `Monotonic`] chapter!
+the #link(<implementing-monotonic>)[Implementing a `Monotonic`] chapter!
 ]
 
 = Timeout
-<timeout>
+
 Rust
 #link("https://doc.rust-lang.org/std/future/trait.Future.html")[`Future`]s
 (underlying Rust `async`/`await`) are composable. This makes it possible
@@ -79,9 +76,10 @@ the time it takes based on the input parameter (`n`) as
 Using the `select_biased` macro from the `futures` crate it may look
 like this:
 
-```rust
-{{#include ../../../../examples/lm3s6965/examples/async-timeout.rs:select_biased}}
-```
+#include-code(
+    "../../examples/lm3s6965/examples/async-timeout.rs",
+    anchor: "select_biased",
+)
 
 Assuming the `hal_get` will take 450ms to finish, a short timeout of
 200ms will expire before `hal_get` can complete.
@@ -98,9 +96,10 @@ and
 crates. Here's another example, using `Mono::delay_until` and
 `Mono::timeout_after`:
 
-```rust
-{{#include ../../../../examples/lm3s6965/examples/async-timeout.rs:timeout_at_basic}}
-```
+#include-code(
+    "../../examples/lm3s6965/examples/async-timeout.rs",
+    anchor: "timeout_at_basic",
+)
 
 In cases where you want exact control over time without drift we can use
 exact points in time using `Instant`, and spans of time using
@@ -127,14 +126,10 @@ the timeout. For the third iteration, with `n == 2`, `hal_get` will take
 550ms to finish, in which case we will run into a timeout.
 
 A complete example
-```rust
-{{#include ../../../../examples/lm3s6965/examples/async-timeout.rs}}
-```
+#include-code("../../examples/lm3s6965/examples/async-timeout.rs")
 
-```console
-$ cargo xtask qemu --verbose --example async-timeout
-```
-
-```console
-{{#include ../../../../ci/expected/lm3s6965/async-timeout.run}}
-```
+#include-code(
+    lang: "shell",
+    prefix: "$ cargo xtask qemu --verbose --example async-timeout\n",
+    "../../ci/expected/lm3s6965/async-timeout.run",
+)

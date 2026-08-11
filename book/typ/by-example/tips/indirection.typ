@@ -24,14 +24,10 @@ the memory allocator, in this case `heapless::pool`.
 Here's an example where `heapless::Pool` is used to "box" buffers of 128
 bytes.
 
-```rust
-{{#include ../../../../../examples/lm3s6965/examples/pool.rs}}
-```
+#include-code("../../examples/lm3s6965/examples/pool.rs")
 
-```console
-$ cargo xtask qemu --verbose --example pool
-```
-
-```console
-{{#include ../../../../../ci/expected/lm3s6965/pool.run}}
-```
+#include-code(
+    lang: "shell",
+    prefix: "$ cargo xtask qemu --verbose --example pool\n",
+    "../../ci/expected/lm3s6965/pool.run",
+)

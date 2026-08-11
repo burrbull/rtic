@@ -9,7 +9,7 @@ required to mutate the memory in a data race free manner. In RTIC we use
 priority-based critical sections to guarantee mutual exclusion (see the
 #link("https://en.wikipedia.org/wiki/Priority_ceiling_protocol")[Immediate Ceiling Priority Protocol]).
 
-The critical section consists of temporarily raising the #emph[dynamic]
+The critical section consists of temporarily raising the _dynamic_
 priority of the task. While a task is within this critical section all
 the other tasks that may request the resource are #emph[not allowed to
 start].
@@ -21,7 +21,7 @@ section. This section will focus on the implementation of the critical
 section.
 
 = Resource proxy
-<resource-proxy>
+
 For simplicity, let's look at a resource shared by two tasks that run at
 different priorities. Clearly one of the task can preempt the other; to
 prevent a data race the #emph[lower priority] task must use a critical
@@ -137,7 +137,7 @@ mod app {
 ```
 
 = `lock`
-<lock>
+
 Let's now zoom into the critical section itself. In this example, we
 have to raise the dynamic priority to at least `2` to prevent a data
 race. On the Cortex-M architecture the dynamic priority can be changed
@@ -148,7 +148,7 @@ The semantics of the `BASEPRI` register are as follows:
 - Writing a value of `0` to `BASEPRI` disables its functionality.
 - Writing a non-zero value to `BASEPRI` changes the priority level
   required for interrupt preemption. However, this only has an effect
-  when the written value is #emph[lower] than the priority level of
+  when the written value is _lower_ than the priority level of
   current execution context, but note that a lower hardware priority
   level means higher logical priority
 
@@ -218,10 +218,10 @@ fn foo(c: foo::Context) {
 ```
 
 = Nesting
-<nesting>
-Nesting calls to `lock` on the #emph[same] resource must be rejected by
+
+Nesting calls to `lock` on the _same_ resource must be rejected by
 the compiler for memory safety but nesting `lock` calls on
-#emph[different] resources is a valid operation. In that case we want to
+_different_ resources is a valid operation. In that case we want to
 make sure that nesting critical sections never results in lowering the
 dynamic priority, as that would be unsound, and we also want to optimize
 the number of writes to the `BASEPRI` register and compiler fences. To
@@ -427,9 +427,9 @@ fn foo(c: foo::Context) {
 ```
 
 = The BASEPRI invariant
-<the-basepri-invariant>
+
 An invariant that the RTIC framework has to preserve is that the value
-of the BASEPRI at the start of an #emph[interrupt] handler must be the
+of the BASEPRI at the start of an _interrupt_ handler must be the
 same value it has when the interrupt handler returns. BASEPRI may change
 during the execution of the interrupt handler but running an interrupt
 handler from start to finish should not result in an observable change
@@ -498,7 +498,7 @@ mod app {
 }
 ```
 
-IMPORTANT: let's say we #emph[forget] to roll back `BASEPRI` in `UART1`
+IMPORTANT: let's say we _forget_ to roll back `BASEPRI` in `UART1`
 -- this would be a bug in the RTIC code generator.
 
 ```rust

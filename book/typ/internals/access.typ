@@ -19,8 +19,8 @@ To achieve the fine-grained access control where tasks can only access
 the static variables (resources) that they have specified in their RTIC
 attribute the RTIC framework performs a source code level
 transformation. This transformation consists of placing the resources
-(static variables) specified by the user #emph[inside] a module and the
-user code #emph[outside] the module. This makes it impossible for the
+(static variables) specified by the user _inside_ a module and the
+user code _outside_ the module. This makes it impossible for the
 user code to refer to these static variables.
 
 Access to the resources is then given to each task using a `Resources`

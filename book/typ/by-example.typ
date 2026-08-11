@@ -13,7 +13,7 @@ found in the `examples` directory. The examples are runnable on QEMU
 follow along.
 
 = Running an example
-<running-an-example>
+
 To run the examples with QEMU you will need the `qemu-system-arm`
 program. Check
 #link("https://rust-embedded.github.io/book/intro/install.html")[the embedded Rust book]
@@ -34,13 +34,13 @@ To limit which examples are being run, use the flag
 
 Assuming dependencies in place, running:
 
-```console
+```shell
 $ cargo xtask qemu --example locals
 ```
 
 Yields this output:
 
-```console
+```shell
    Finished dev [unoptimized + debuginfo] target(s) in 0.07s
     Running `target/debug/xtask qemu --example locals`
 INFO  xtask::run > QEMU run for platform: Lm3s6965, backend: Thumbv7
@@ -57,7 +57,7 @@ It is great that examples are passing and this is part of the RTIC CI
 setup too, but for the purposes of this book we must add the `--verbose`
 flag, or `-v` for short to see the actual program output:
 
-```console
+```shell
 ❯ cargo xtask qemu --verbose --example locals
     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.04s
      Running `target/debug/xtask qemu --verbose --example locals`
@@ -94,10 +94,10 @@ Timer with period zero, disabling
 Look for the content following `Stdout:` towards the end ouf the output,
 the program output should have these lines:
 
-#include-code("../../ci/expected/lm3s6965/locals.run", lang: "console")
+#include-code("../../ci/expected/lm3s6965/locals.run", lang: "shell")
 
 #quote(block: true)[
-#strong[NOTE]: For other useful options to `cargo xtask`, see:
+*NOTE*: For other useful options to `cargo xtask`, see:
 
 ```
 cargo xtask qemu --help

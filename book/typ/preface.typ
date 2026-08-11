@@ -1,12 +1,21 @@
 #import "config.typ": *
 
-#block[
+#if tgt == "html" [
+  #html.elem(
+    "div",
+    attrs: (align: "center"),
+    image("RTIC.svg", width: 18.8em, height: 18.8em),
+  )
+  #html.elem(
+    "div",
+    attrs: (
+      align: "center", 
+      style: "font-size: 6em; font-weight: bolder;"
+    ),
+  )[RTIC]
+  #html.elem("h1", attrs: (align: "center"))[The hardware accelerated Rust RTOS]
+  #html.elem("p", attrs: (align: "center"))[A concurrency framework for building real-time systems]
 ]
-#block[
-RTIC
-]
-The hardware accelerated Rust RTOS
-A concurrency framework for building real-time systems
 
 #h1((en: [Preface]
 ))
@@ -22,10 +31,16 @@ Older releases: #link("/1")[RTIC v1.x] |
 |
 #link("https://github.com/rtic-rs/rtic/tree/release/v0.4")[RTFM v0.4.x (unsupported)]
 
-{{\#include \../../../README.md:7:12}}
+#if tgt == "html" [
+  #link("https://crates.io/crates/rtic", html.img(src: "https://img.shields.io/crates/v/rtic", alt: "crates.io"))
+  #link("https://docs.rs/rtic", html.img(src: "https://docs.rs/rtic/badge.svg", alt: "docs.rs"))
+  #link("https://rtic.rs/", html.img(src: "https://img.shields.io/badge/web-rtic.rs-red.svg?style=flat&label=book&colorB=d33847", alt: "book"))
+  #link("https://matrix.to/#/#rtic:matrix.org", html.img(src: "https://img.shields.io/matrix/rtic:matrix.org", alt: "matrix"))
+  #link("https://rtic.rs/meeting", html.img(src: "https://hackmd.io/badge.svg", alt: "Meeting notes"))
+]
 
 = Is RTIC an RTOS?
-<is-rtic-an-rtos>
+
 A common question is whether RTIC is an RTOS or not, and depending on
 your background the answer may vary. From RTIC's developers point of
 view; RTIC is a hardware accelerated RTOS that utilizes the hardware
@@ -37,9 +52,9 @@ framework as there is no software kernel and that it relies on external
 HALs.
 
 = RTIC - The Past, current and Future
-<rtic---the-past-current-and-future>
+
 This section gives a background to the RTIC model. Feel free to skip to
-section #link("preface.md#rtic-the-model")[RTIC the model] for a TL;DR.
+section /*#link(<rtic-the-model>)*/[RTIC the model] for a TL;DR.
 
 The RTIC framework takes the outset from real-time systems research at
 Luleå University of Technology (LTU) Sweden. RTIC is inspired by the
@@ -58,7 +73,7 @@ and
 publications.
 
 = Stack Resource Policy based Scheduling
-<stack-resource-policy-based-scheduling>
+
 #link("https://link.springer.com/article/10.1007/BF00365393")[Stack Resource Policy (SRP)]
 based concurrency and resource management is at heart of the RTIC
 framework. The SRP model itself extends on
@@ -81,15 +96,15 @@ tasks must be run-to-completion, and - resources must be claimed/locked
 in LIFO order.
 
 = SRP analysis
-<srp-analysis>
+
 SRP based scheduling requires the set of static priority tasks and their
 access to shared resources to be known in order to compute a static
-#emph[ceiling] (𝝅) for each resource. The static resource #emph[ceiling]
+_ceiling_ (𝝅) for each resource. The static resource _ceiling_
 𝝅(r) reflects the maximum static priority of any task that accesses the
 resource `r`.
 
 == Example
-<example>
+
 Assume two tasks `A` (with priority `p(A) = 2`) and `B` (with priority
 `p(B) = 4`) both accessing the shared resource `R`. The static ceiling
 of `R` is 4 (computed from `𝝅(R) = max(p(A) = 2, p(B) = 4) = 4`).
@@ -104,7 +119,7 @@ graph LR
 ```
 
 = RTIC the hardware accelerated real-time scheduler
-<rtic-the-hardware-accelerated-real-time-scheduler>
+
 SRP itself is compatible with both dynamic and static priority
 scheduling. For the implementation of RTIC we leverage on the underlying
 hardware for accelerated static priority scheduling.
@@ -138,7 +153,7 @@ maximum priority ceiling of the currently held resources, and will thus
 change dynamically during the system operation.
 
 == Example
-<example-1>
+
 Assume the task model above. Starting from an idle system, 𝜫 is 0, (no
 task is holding any resource). Assume that `A` is requested for
 execution, it will immediately be scheduled. Assume that `A` claims
@@ -147,10 +162,9 @@ will be blocked from starting (by 𝜫 = `max(𝝅(R) = 4) = 4`, `p(B) = 4`,
 thus SRP scheduling condition 1 is not met).
 
 = Mapping
-<mapping>
+
 The mapping of static priority SRP based scheduling to the Cortex M
 hardware is straightforward:
-
 - each task `t` are mapped to an interrupt vector index `i` with a
   corresponding function `v[i].fn = t` and given the static priority
   `v[i].priority = p(t)`.
@@ -158,29 +172,27 @@ hardware is straightforward:
   implemented through masking the interrupt enable bits accordingly.
 
 == Example
-<example-2>
+
 For the running example, a snapshot of the ARM Cortex M
 #link("https://developer.arm.com/documentation/ddi0337/h/nested-vectored-interrupt-controller/about-the-nvic")[Nested Vectored Interrupt Controller (NVIC)]
 may have the following configuration (after task `A` has been pended for
 execution.)
 
-#figure(
-  table(
-    columns: 5,
-    align: (auto,auto,auto,auto,auto,),
-    table.header([Index], [Fn], [Priority], [Enabled], [Pending],),
-    table.hline(),
-    [0], [A], [2], [true], [true],
-    [1], [B], [4], [true], [false],
-  )
-  , kind: table
-  )
+#table(
+  columns: 5,
+  align: (auto,auto,auto,auto,auto,),
+  table.header([Index], [Fn], [Priority], [Enabled], [Pending],),
+  table.hline(),
+  [0], [A], [2], [true], [true],
+  [1], [B], [4], [true], [false],
+)
+
 
 \(As discussed later, the assignment of interrupt and exception vectors
 is up to the user.)
 
 A claim (lock(r)) will change the current system ceiling (𝜫) and can be
-implemented as a #emph[named] critical section: - old\_ceiling = 𝜫, 𝜫 =
+implemented as a _named_ critical section: - old\_ceiling = 𝜫, 𝜫 =
 𝝅(r) \ - execute code within critical section - 𝜫 = old\_ceiling
 
 This amounts to a resource protection mechanism, requiring only two
@@ -210,7 +222,7 @@ requirement cannot be ensured). Thus, SRP based scheduling is in the
 general case out of reach for any thread based RTOS.
 
 = RTIC into the Future
-<rtic-into-the-future>
+
 Asynchronous programming in various forms are getting increased
 popularity and language support. Rust natively provides an
 `async`/`await` API for cooperative multitasking and the compiler
@@ -222,7 +234,7 @@ The Rust standard library provides collections for dynamically allocated
 data-structures which are useful to manage execution contexts at
 run-time. However, in the setting of resource constrained real-time
 systems, dynamic allocations are problematic (both regarding performance
-and reliability - Rust runs into a #emph[panic] on an out-of-memory
+and reliability - Rust runs into a _panic_ on an out-of-memory
 condition). Thus, static allocation is the preferable approach!
 
 From a modelling perspective `async/await` lifts the run-to-completion
@@ -252,11 +264,12 @@ either, all, or any combination of possible futures (allowing e.g.,
 timeouts and/or asynchronous errors to be promptly handled).
 
 = RTIC the model
-<rtic-the-model>
+//<rtic-the-model>
+
 An RTIC `app` is a declarative and executable system model for
 single-core applications, defining a set of (`local` and `shared`)
-resources operated on by a set of (`init`, `idle`, #emph[hardware] and
-#emph[software]) tasks. In short the `init` task runs before any other
+resources operated on by a set of (`init`, `idle`, _hardware_ and
+_software_) tasks. In short the `init` task runs before any other
 task returning a set of resources (`local` and `shared`). Tasks run
 preemptively based on their associated static priority, `idle` has the
 lowest priority (and can be used for background work, and/or to put the
@@ -266,7 +279,6 @@ asynchronous executors (one for each software task priority).
 
 At compile time the task/resource model is analyzed under SRP and
 executable code generated with the following outstanding properties:
-
 - guaranteed race-free resource access and deadlock-free execution on a
   single-shared stack (thanks to SRP)
   - hardware task scheduling is performed directly by the hardware, and

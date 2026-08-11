@@ -4,7 +4,7 @@
 ))
 
 = Differences
-<differences>
+
 Embassy provides both Hardware Abstraction Layers, and an
 executor/runtime, while RTIC aims to only provide an execution
 framework. For example, embassy provides `embassy-stm32` (a HAL), and
@@ -20,7 +20,7 @@ protection. This allows for access to hardware without necessarily
 requiring locking mechanisms at the software level.
 
 = Mixing use of Embassy and RTIC
-<mixing-use-of-embassy-and-rtic>
+
 Since most Embassy and RTIC libraries are runtime agnostic, many details
 from one project can be used in the other. For example, using
 #link("https://docs.rs/rtic-monotonics/latest/rtic_monotonics/")[`rtic-monotonics`]

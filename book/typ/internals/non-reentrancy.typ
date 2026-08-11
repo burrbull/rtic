@@ -1,14 +1,14 @@
 #import "../config.typ": *
 
 Non-reentrancy
-<non-reentrancy>
-In RTIC, tasks handlers are #emph[not] reentrant. Reentering a task
+
+In RTIC, tasks handlers are _not_ reentrant. Reentering a task
 handler can break Rust aliasing rules and lead to #emph[undefined
 behavior]. A task handler can be reentered in one of two ways: in
 software or by hardware.
 
 = In software
-<in-software>
+
 To reenter a task handler in software its underlying interrupt handler
 must be invoked using FFI (see example below). FFI requires `unsafe`
 code so end users are discouraged from directly invoking an interrupt
@@ -77,7 +77,7 @@ mod app {
 ```
 
 = By hardware
-<by-hardware>
+
 A task handler can also be reentered without software intervention. This
 can occur if the same handler is assigned to two or more interrupts in
 the vector table but there's no syntax for this kind of configuration in

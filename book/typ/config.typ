@@ -59,8 +59,6 @@
 // str: use in code blocks
 #let ts = tr.with(default: todos)
 
-#let book_title = "Real-Time Interrupt-driven Concurrency"
-
 #let h1(it, offset: 0) = {
   if type(it) == dictionary {
     it = tr(it)
@@ -70,13 +68,36 @@
   } else {
     title(it)
   }
-  /*show title: it => {
-    heading(it.body, depth: 1, offset: offset)
-  }
-  title(it)*/
 }
 
-#let include-code(path, lang: "rust", block: true) = {
-  raw(read(path), lang: lang, block: block)
+#let include-code(path, lang: "rust", block: true, prefix: "", suffix: "", anchor: none, lines: none) = {
+  let offset = 0
+  let file = read(path)
+  let code = if type(anchor) == str {
+    let lines = file.split("\n")
+    let left = lines.position(l => { regex("ANCHOR:\s+"+anchor) in l })
+    offset = left
+    let right = lines.position(l => { regex("ANCHOR_END:\s+"+anchor) in l })
+    lines.slice(left+1, right).join("\n")
+  } else if type(lines) == int {
+    offset = lines - 1
+    file.split("\n").at(lines - 1)
+  } else if type(lines) == array {
+    offset = lines.at(0) - 1
+    file.split("\n").slice(lines.at(0) - 1, lines.at(1)).join("\n")
+  } else {
+    file
+  }
+  if tgt == "pdf" {
+    import "@preview/codly:1.3.0": codly
+    if lang == "rust" {
+      codly(number-format: numbering.with("1"))
+    }
+    codly(offset: offset - prefix.matches("\n").len())
+    raw(prefix + code + suffix, lang: lang, block: block)
+    codly(number-format: none)
+  } else {
+    raw(prefix + code + suffix, lang: lang, block: block)
+  }
 }
 

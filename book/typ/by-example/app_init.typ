@@ -21,7 +21,7 @@ Device specific peripherals are available through the `core` and
 `device` fields of `init::Context`.
 
 = Example
-<example>
+
 The example below shows the types of the `core`, `device` and `cs`
 fields, and showcases the use of a `local` variable with `'static`
 lifetime. Such variables can be delegated from the `init` task to other
@@ -32,17 +32,13 @@ set to the default value `true`. In the rare case you want to implement
 an ultra-slim application you can explicitly set `peripherals` to
 `false`.
 
-```rust
-{{#include ../../../../examples/lm3s6965/examples/init.rs}}
-```
+#include-code("../../examples/lm3s6965/examples/init.rs")
 
 Running the example will print `init` to the console and then exit the
 QEMU process.
 
-```console
+```shell
 $ cargo xtask qemu --verbose --example init
 ```
 
-```console
-{{#include ../../../../ci/expected/lm3s6965/init.run}}
-```
+#include-code("../../ci/expected/lm3s6965/init.run", lang: "shell")

@@ -16,11 +16,10 @@ simultaneous pending spawns of `foo`. Exceeding this capacity is an
 
 The number of arguments to a task is not limited:
 
-```rust
-{{#include ../../../../examples/message_passing.rs}}
-```
+#include-code("../../examples/message_passing.rs")
 
-```console
-$ cargo xtask qemu --verbose --example message_passing
-{{#include ../../../../ci/expected/message_passing.run}}
-```
+#include-code(
+    lang: "shell",
+    prefix: "$ cargo xtask qemu --verbose --example message_passing\n",
+    "../../ci/expected/message_passing.run",
+)

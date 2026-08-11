@@ -1,5 +1,7 @@
 #import "config.typ": *
-#import "@local/typbook:0.1.0": book
+#import "@preview/typbook:0.1.0": book
+
+#set figure.caption(position: top)
 
 #let sources = (
   "preface": (
@@ -17,7 +19,7 @@
   "by-example": (
     content: include "by-example.typ",
     title: tr((
-      en: [Preface],
+      en: [RTIC by example],
     )),
     sub: (
       "by-example/app": (
@@ -90,7 +92,7 @@
           ),
           "by-example/tips/static_lifetimes": (
             content: include "by-example/tips/static_lifetimes.typ",
-            title: [`'static` super-powers]
+            title: [static super-powers]
           ),
           "by-example/tips/view_code": (
             content: include "by-example/tips/view_code.typ",
@@ -231,5 +233,15 @@
   sources,
   lang,
   languages,
-  book_title: book_title,
+  book_title: "Real-Time Interrupt-driven Concurrency",
+  git: "https://github.com/rtic-rs/rtic",
+  title_page: [
+    #set align(center)
+    #image("RTIC.svg", width: 18.8em)
+    #text(size: 6em)[RTIC]
+
+    #text(size: 20pt)[The hardware accelerated Rust RTOS]
+
+    A concurrency framework for building real-time systems
+  ]
 )

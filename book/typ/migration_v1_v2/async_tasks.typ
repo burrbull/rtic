@@ -7,11 +7,11 @@ There have been a few changes to software tasks. They are outlined
 below.
 
 == Software tasks must now be `async`.
-<software-tasks-must-now-be-async.>
+
 All software tasks are now required to be `async`.
 
 === Required changes.
-<required-changes.>
+
 All of the tasks in your project that do not bind to an interrupt must
 now be an `async fn`. For example:
 
@@ -42,7 +42,7 @@ async fn my_task(cx: my_task::Context) {
 ```
 
 = Software tasks may now run forever
-<software-tasks-may-now-run-forever>
+
 The new `async` software tasks are allowed to run forever, on one
 precondition: #strong[there must be an `await` within the infinite loop
 of the task]. An example of such a task:
@@ -58,7 +58,7 @@ async fn my_task_that_runs_forever(cx: my_task_that_runs_forever::Context) {
 ```
 
 = `spawn_after` and `spawn_at` have been removed.
-<spawn_after-and-spawn_at-have-been-removed.>
+
 As discussed in the
-#link("./monotonics.md")[Migrating to `rtic-monotonics`] chapter,
+#link(<migrating-rtic-monotonics>)[Migrating to `rtic-monotonics`] chapter,
 `spawn_after` and `spawn_at` are no longer available.

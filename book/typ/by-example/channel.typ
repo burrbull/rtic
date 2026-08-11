@@ -7,7 +7,7 @@ Channels can be used to communicate data between running tasks. The
 channel is essentially a wait queue, allowing tasks with multiple
 producers and a single receiver. A channel is constructed in the `init`
 task and backed by statically allocated memory. Send and receive
-endpoints are distributed to #emph[software] tasks:
+endpoints are distributed to _software_ tasks:
 
 ```rust
 ...
@@ -24,11 +24,11 @@ const CAPACITY: usize = 5;
 In this case the channel holds data of `u32` type with a capacity of 5
 elements.
 
-Channels can also be used from #emph[hardware] tasks, but only in a
+Channels can also be used from _hardware_ tasks, but only in a
 non-`async` manner using the #link(<try-api>)[Try API].
 
 = Sending data
-<sending-data>
+
 The `send` method post a message on the channel as shown below:
 
 ```rust
@@ -40,7 +40,7 @@ async fn sender1(_c: sender1::Context, mut sender: Sender<'static, u32, CAPACITY
 ```
 
 = Receiving data
-<receiving-data>
+
 The receiver can `await` incoming messages:
 
 ```rust
@@ -61,17 +61,13 @@ platform crate, for example `cortex-m/critical-section-single-core` or
 
 For a complete example:
 
-```rust
-{{#include ../../../../examples/lm3s6965/examples/async-channel.rs}}
-```
+#include-code("../../examples/lm3s6965/examples/async-channel.rs")
 
-```console
+```shell
 $ cargo xtask qemu --verbose --example async-channel
 ```
 
-```console
-{{#include ../../../../ci/expected/lm3s6965/async-channel.run}}
-```
+#include-code("../../ci/expected/lm3s6965/async-channel.run", lang: "shell")
 
 Also sender endpoint can be awaited. In case the channel capacity has
 not yet been reached, `await`-ing the sender can progress immediately,
@@ -81,42 +77,37 @@ there is free space in the queue. In this way data is never lost.
 In the following example the `CAPACITY` has been reduced to 1, forcing
 sender tasks to wait until the data in the channel has been received.
 
-```rust
-{{#include ../../../../examples/lm3s6965/examples/async-channel-done.rs}}
-```
+#include-code("../../examples/lm3s6965/examples/async-channel-done.rs")
 
 Looking at the output, we find that `Sender 2` will wait until the data
 sent by `Sender 1` as been received.
 
 #quote(block: true)[
-#strong[NOTICE] #emph[Software] tasks at the same priority are executed
-asynchronously to each other, thus #strong[NO] strict order can be
+*NOTICE* _Software_ tasks at the same priority are executed
+asynchronously to each other, thus *NO* strict order can be
 assumed. (The presented order here applies only to the current
 implementation, and may change between RTIC framework releases.)
 ]
 
-```console
-$ cargo xtask qemu --verbose --example async-channel-done
-{{#include ../../../../ci/expected/lm3s6965/async-channel-done.run}}
-```
+#include-code(
+    lang: "shell",
+    prefix: "$ cargo xtask qemu --verbose --example async-channel-done\n",
+    "../../ci/expected/lm3s6965/async-channel-done.run",
+)
 
 = Error handling
-<error-handling>
+
 In case all senders have been dropped `await`-ing on an empty receiver
 channel results in an error. This allows to gracefully implement
 different types of shutdown operations.
 
-```rust
-{{#include ../../../../examples/lm3s6965/examples/async-channel-no-sender.rs}}
-```
+#include-code("../../examples/lm3s6965/examples/async-channel-no-sender.rs")
 
-```console
-$ cargo xtask qemu --verbose --example async-channel-no-sender
-```
-
-```console
-{{#include ../../../../ci/expected/lm3s6965/async-channel-no-sender.run}}
-```
+#include-code(
+    lang: "shell",
+    prefix: "$ cargo xtask qemu --verbose --example async-channel-no-sender\n",
+    "../../ci/expected/lm3s6965/async-channel-no-sender.run"
+)
 
 Similarly, `await`-ing on a send channel results in an error in case the
 receiver has been dropped. This allows to gracefully implement
@@ -126,34 +117,27 @@ The resulting error returns the data back to the sender, allowing the
 sender to take appropriate action (e.g., storing the data to later retry
 sending it).
 
-```rust
-{{#include ../../../../examples/lm3s6965/examples/async-channel-no-receiver.rs}}
-```
+#include-code("../../examples/lm3s6965/examples/async-channel-no-receiver.rs")
 
-```console
-$ cargo xtask qemu --verbose --example async-channel-no-receiver
-```
-
-```console
-{{#include ../../../../ci/expected/lm3s6965/async-channel-no-receiver.run}}
-```
+#include-code(
+    lang: "shell",
+    prefix: "$ cargo xtask qemu --verbose --example async-channel-no-receiver\n",
+    "../../ci/expected/lm3s6965/async-channel-no-receiver.run",
+)
 
 = Try API
 <try-api>
+
 Using the Try API, you can send or receive data from or to a channel
 without requiring that the operation succeeds, and in non-`async`
 contexts.
 
 This API is exposed through `Receiver::try_recv` and `Sender::try_send`.
 
-```rust
-{{#include ../../../../examples/lm3s6965/examples/async-channel-try.rs}}
-```
+#include-code("../../examples/lm3s6965/examples/async-channel-try.rs")
 
-```console
-$ cargo xtask qemu --verbose --example async-channel-try
-```
-
-```console
-{{#include ../../../../ci/expected/lm3s6965/async-channel-try.run}}
-```
+#include-code(
+    lang: "shell",
+    prefix: "$ cargo xtask qemu --verbose --example async-channel-try\n",
+    "../../ci/expected/lm3s6965/async-channel-try.run",
+)

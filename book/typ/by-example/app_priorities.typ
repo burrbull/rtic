@@ -4,7 +4,7 @@
 ), offset: whole)
 
 = Priorities
-<priorities>
+
 The `priority` argument declares the static priority of each `task`.
 
 For Cortex-M, tasks can have priorities in the range
@@ -18,7 +18,7 @@ priority.
 #quote(block: true)[
 A higher number means a higher priority in RTIC, which is the opposite
 from what Cortex-M does in the NVIC peripheral. Explicitly, this means
-that number `10` has a #strong[higher] priority than number `9`.
+that number `10` has a *higher* priority than number `9`.
 ]
 
 The highest static priority task takes precedence when more than one
@@ -46,17 +46,16 @@ Task Priority
 
 The following example showcases the priority based scheduling of tasks:
 
-```rust
-{{#include ../../../../examples/lm3s6965/examples/preempt.rs}}
-```
+#include-code("../../examples/lm3s6965/examples/preempt.rs")
 
-```console
-$ cargo xtask qemu --verbose --example preempt
-{{#include ../../../../ci/expected/lm3s6965/preempt.run}}
-```
+#include-code(
+  lang: "shell",
+  prefix: "$ cargo xtask qemu --verbose --example preempt\n",
+  "../../ci/expected/lm3s6965/preempt.run"
+)
 
-Note that the task `bar` does #emph[not] preempt task `baz` because its
-priority is the #emph[same] as `baz`'s. The higher priority task `bar`
+Note that the task `bar` does _not_ preempt task `baz` because its
+priority is the _same_ as `baz`'s. The higher priority task `bar`
 runs before `foo` when `baz`returns. When `bar` returns `foo` can
 resume.
 

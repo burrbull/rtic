@@ -13,7 +13,7 @@ unparalleled performance and predictability, in effect RTIC provides in
 Rust terms a zero-cost abstraction to concurrent real-time programming.
 
 = Comparison regarding safety and security
-<comparison-regarding-safety-and-security>
+
 Comparing RTIC to traditional a Real-Time Operating System (RTOS) is
 hard. Firstly, a traditional RTOS typically comes with no guarantees
 regarding system safety, even the most hardened kernels like the
@@ -28,9 +28,8 @@ insecure ways." -
 #link("https://docs.sel4.systems/projects/sel4/frequently-asked-questions.html")[seL4 FAQ]
 
 = Security by design
-<security-by-design>
-In the world of information security we commonly find:
 
+In the world of information security we commonly find:
 - confidentiality, protecting the information from being exposed to an
   unauthorized party,
 - integrity, referring to accuracy and completeness of data, and

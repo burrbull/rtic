@@ -109,7 +109,7 @@ mod app {
 
 An important detail here is that `interrupt::enable` behaves like a
 #emph[compiler fence], which prevents the compiler from reordering the
-write to `X` to #emph[after] `interrupt::enable`. If the compiler were
+write to `X` to _after_ `interrupt::enable`. If the compiler were
 to do that kind of reordering there would be a data race between that
 write and whatever operation `foo` performs on `X`.
 

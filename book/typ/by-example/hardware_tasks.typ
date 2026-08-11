@@ -2,6 +2,7 @@
 
 #h1((en: [Hardware tasks]
 ), offset: whole)
+<hardware_tasks>
 
 At its core RTIC is using a hardware interrupt controller
 (#link("https://developer.arm.com/documentation/100166/0001/Nested-Vectored-Interrupt-Controller/NVIC-functional-description/NVIC-interrupts")[ARM NVIC on cortex-m])
@@ -29,19 +30,15 @@ Beware of using interrupt vectors that are used internally by hardware
 features; RTIC is unaware of such hardware specific details.
 
 = Example
-<example>
+
 The example below demonstrates the use of the
 `#[task(binds = InterruptName)]` attribute to declare a hardware task
 bound to an interrupt handler.
 
-```rust
-{{#include ../../../../examples/lm3s6965/examples/hardware.rs}}
-```
+#include-code("../../examples/lm3s6965/examples/hardware.rs")
 
-```console
-$ cargo xtask qemu --verbose --example hardware
-```
-
-```console
-{{#include ../../../../ci/expected/lm3s6965/hardware.run}}
-```
+#include-code(
+    lang: "shell",
+    prefix: "$ cargo xtask qemu --verbose --example hardware\n",
+    "../../ci/expected/lm3s6965/hardware.run",
+)

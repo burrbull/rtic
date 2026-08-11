@@ -16,16 +16,12 @@ In the following example two different tasks share a
 #link("https://docs.rs/heapless/0.7.5/heapless/spsc/struct.Queue.html")[`heapless::spsc::Queue`]
 for lock-free access to the shared queue.
 
-```rust
-{{#include ../../../../../examples/lm3s6965/examples/static-resources-in-init.rs}}
-```
+#include-code("../../examples/lm3s6965/examples/static-resources-in-init.rs")
 
 Running this program produces the expected output.
 
-```console
-$ cargo xtask qemu --verbose --example static-resources-in-init
-```
-
-```console
-{{#include ../../../../../ci/expected/lm3s6965/static-resources-in-init.run}}
-```
+#include-code(
+    lang: "shell",
+    prefix: "$ cargo xtask qemu --verbose --example static-resources-in-init\n",
+    "../../ci/expected/lm3s6965/static-resources-in-init.run",
+)

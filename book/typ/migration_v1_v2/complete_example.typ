@@ -2,6 +2,7 @@
 
 #h1((en: [A complete example of migration]
 ), offset: whole)
+<migration_v1_v2_example>
 
 Below you can find the code for the implementation of the
 `stm32f3_blinky` example for v1.0.x and for v2.0.0. Further down, a diff
@@ -90,17 +91,15 @@ mod app {
 
 = V2.0.0
 
-```rust
-{{ #include ../../../../examples/stm32f3_blinky/src/main.rs }}
-```
+#include-code("../../examples/stm32f3_blinky/src/main.rs")
 
 = A diff between the two projects
-<a-diff-between-the-two-projects>
-#emph[Note]: This diff may not be 100% accurate, but it displays the
+
+_Note_: This diff may not be 100% accurate, but it displays the
 important changes.
 
 ```diff
-#![no_main]
+ #![no_main]
  #![no_std]
  
  use panic_rtt_target as _;

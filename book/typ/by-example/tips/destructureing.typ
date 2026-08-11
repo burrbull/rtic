@@ -7,14 +7,10 @@ Destructuring task resources might help readability if a task takes
 multiple resources. Here are two examples on how to split up the
 resource struct:
 
-```rust
-{{#include ../../../../../examples/lm3s6965/examples/destructure.rs}}
-```
+#include-code("../../examples/lm3s6965/examples/destructure.rs")
 
-```console
-$ cargo xtask qemu --verbose --example destructure
-```
-
-```console
-{{#include ../../../../../ci/expected/lm3s6965/destructure.run}}
-```
+#include-code(
+    lang: "shell",
+    prefix: "$ cargo xtask qemu --verbose --example destructure\n",
+    "../../ci/expected/lm3s6965/destructure.run",
+)

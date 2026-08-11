@@ -13,7 +13,7 @@ have two options:
   sub-command
 
 = Using generated `rtic-expansion.rs`
-<using-generated-rtic-expansion.rs>
+
 Locating this file depends on how building is performed.
 
 Using e.g.~`cargo xtask build-example` within the main RTIC repo will
@@ -36,15 +36,15 @@ whole program!) of the #emph[last built] (via `cargo build` or
 `cargo check`) RTIC application. The expanded code is not pretty printed
 by default, so you'll want to run `rustfmt` on it before you read it.
 
-```console
+```shell
 $ cargo build --example smallest --target thumbv7m-none-eabi
 ```
 
-```console
+```shell
 $ rustfmt target/rtic-expansion.rs
 ```
 
-```console
+```shell
 $ tail target/rtic-expansion.rs
 ```
 
@@ -67,21 +67,21 @@ mod app {
 ```
 
 = Using `cargo-expand` tool
-<using-cargo-expand-tool>
+
 If not available, install:
 
 ```
 $ cargo install cargo-expand
 ```
 
-This sub-command will expand #emph[all] the macros, including the
+This sub-command will expand _all_ the macros, including the
 `#[rtic::app]` attribute, and modules in your crate and print the output
 to the console.
 
-```console
+```shell
 # produces the same output as before
 ```
 
-```console
+```shell
 cargo expand --example smallest | tail
 ```

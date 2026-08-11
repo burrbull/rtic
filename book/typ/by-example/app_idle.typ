@@ -4,7 +4,7 @@
 ), offset: whole)
 
 A function marked with the `idle` attribute can optionally appear in the
-module. This becomes the special #emph[idle task] and must have
+module. This becomes the special _idle task_ and must have
 signature `fn(idle::Context) -> !`.
 
 When present, the runtime will execute the `idle` task after `init`.
@@ -19,11 +19,11 @@ The example below shows that `idle` runs after `init`.
 
 #include-code("../../examples/lm3s6965/examples/idle.rs")
 
-```console
+```shell
 $ cargo xtask qemu --verbose --example idle
 ```
 
-#include-code("../../ci/expected/lm3s6965/idle.run", lang: "console")
+#include-code("../../ci/expected/lm3s6965/idle.run", lang: "shell")
 
 By default, the RTIC `idle` task does not try to optimize for any
 specific targets.
@@ -33,7 +33,7 @@ A common useful optimization is to enable the
 and allow the MCU to enter sleep when reaching `idle`.
 
 #quote(block: true)[
-#strong[Caution]: some hardware unless configured disables the debug
+*Caution*: some hardware unless configured disables the debug
 unit during sleep mode.
 
 Consult your hardware specific documentation as this is outside the
@@ -50,16 +50,16 @@ with
 
 #include-code("../../examples/lm3s6965/examples/idle-wfi.rs")
 
-```console
+```shell
 $ cargo xtask qemu --verbose --example idle-wfi
 ```
 
-#include-code("../../ci/expected/lm3s6965/idle-wfi.run", lang: "console")
+#include-code("../../ci/expected/lm3s6965/idle-wfi.run", lang: "shell")
 
 #quote(block: true)[
-#strong[Notice]: The `idle` task cannot be used together with
-#emph[software] tasks running at priority zero. The reason is that
+*Notice*: The `idle` task cannot be used together with
+_software_ tasks running at priority zero. The reason is that
 `idle` is running as a non-returning Rust function at priority zero.
 Thus there would be no way for an executor at priority zero to give
-control to #emph[software] tasks at the same priority.
+control to _software_ tasks at the same priority.
 ]

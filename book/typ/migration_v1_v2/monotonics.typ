@@ -2,6 +2,7 @@
 
 #h1((en: [Migrating to `rtic-monotonics`]
 ), offset: whole)
+<migrating-rtic-monotonics>
 
 In previous versions of `rtic`, monotonics were an integral, tightly
 coupled part of the `#[rtic::app]`. In this new version,
@@ -19,7 +20,7 @@ the async functions `delay` and `delay_until` provided by
 implementations of the `rtic_time::Monotonic` trait, available through
 #link("https://github.com/rtic-rs/rtic")[`rtic-monotonics`].
 
-Check out the #link("./complete_example.md")[code example] for an
+Check out the #link(<migration_v1_v2_example>)[code example] for an
 overview of the required changes.
 
 For more information on current monotonic implementations, see

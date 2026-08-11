@@ -33,7 +33,7 @@ mod app {
 ```
 
 = `schedule`
-<schedule>
+
 Let's first look at the `schedule` API.
 
 ```rust
@@ -119,7 +119,7 @@ the entry into a min-heap: it also pends the system timer interrupt
 (`SysTick`) if the new entry ended up first in the queue.
 
 = The system timer
-<the-system-timer>
+
 The system timer interrupt (`SysTick`) takes cares of two things: moving
 tasks that have become ready from the timer queue into the right ready
 queue and setting up a timeout interrupt to fire when the scheduled time
@@ -164,7 +164,7 @@ pends this handler; basically, `enqueue_unchecked` delegates the task of
 setting up a new timeout interrupt to the `SysTick` handler.
 
 = Resolution and range of `cyccnt::Instant` and `cyccnt::Duration`
-<resolution-and-range-of-cyccntinstant-and-cyccntduration>
+
 RTIC provides a `Monotonic` implementation based on the `DWT`'s (Data
 Watchpoint and Trace) cycle counter. `Instant::now` returns a snapshot
 of this timer; these DWT snapshots (`Instant`s) are used to sort entries
@@ -196,7 +196,7 @@ clock cycle and `Duration` effectively has a (half-open) range of
 `0..(1 << 31)` (end not included) core clock cycles.
 
 = Queue capacity
-<queue-capacity>
+
 The capacity of the timer queue is chosen to be the sum of the
 capacities of all `schedule`-able tasks. Like in the case of the ready
 queues, this means that once we have claimed a free slot in the `INPUTS`
@@ -204,7 +204,7 @@ buffer we are guaranteed to be able to insert the task in the timer
 queue; this lets us omit runtime checks.
 
 = System timer priority
-<system-timer-priority>
+
 The priority of the system timer can't be set by the user; it is chosen
 by the framework. To ensure that lower priority tasks don't prevent
 higher priority tasks from running we choose the priority of the system
@@ -221,7 +221,7 @@ system timer must match the highest priority of the `schedule`-able
 tasks; in this example that would be `3`.
 
 = Ceiling analysis
-<ceiling-analysis>
+
 The timer queue is a resource shared between all the tasks that can
 `schedule` a task and the `SysTick` handler. Also the `schedule` API
 contends with the `spawn` API over the free queues. All this must be
@@ -275,7 +275,7 @@ The ceiling analysis would go like this:
   `3`.
 
 = Changes in the `spawn` implementation
-<changes-in-the-spawn-implementation>
+
 When the `schedule` API is used the `spawn` implementation changes a bit
 to track the baseline of tasks. As you saw in the `schedule`
 implementation there's an `INSTANTS` buffers used to store the time at

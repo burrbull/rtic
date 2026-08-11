@@ -4,14 +4,14 @@
 ), offset: whole)
 
 = Requirements on the `app` attribute
-<requirements-on-the-app-attribute>
+
 All RTIC applications use the
 #link("../../../api/rtic_macros/attr.app.html")[`app`] attribute
 (`#[app(..)]`). This attribute only applies to a `mod`-item containing
 the RTIC application.
 
 The `app` attribute has a mandatory `device` argument that takes a
-#emph[path] as a value. This must be a full path pointing to a
+_path_ as a value. This must be a full path pointing to a
 #emph[peripheral access crate] (PAC) generated using
 #link("https://crates.io/crates/svd2rust")[`svd2rust`] #strong[v0.14.x]
 or newer.
@@ -22,12 +22,11 @@ replaces the use of the
 attribute.
 
 = Structure and zero-cost concurrency
-<structure-and-zero-cost-concurrency>
+
 An RTIC `app` is an executable system model for single-core
 applications, declaring a set of `local` and `shared` resources operated
-on by a set of `init`, `idle`, #emph[hardware] and #emph[software]
+on by a set of `init`, `idle`, _hardware_ and _software_
 tasks.
-
 - `init` runs before any other task, and returns the `local` and
   `shared` resources.
 - Tasks (both hardware and software) run preemptively based on their
@@ -41,7 +40,6 @@ tasks.
 At compile time the task/resource model is analyzed under the Stack
 Resource Policy (SRP) and executable code generated with the following
 outstanding properties:
-
 - Guaranteed race-free resource access and deadlock-free execution on a
   single-shared stack.
 - Hardware task scheduling is performed directly by the hardware.
@@ -53,7 +51,7 @@ to a hand-written implementation, thus in Rust terms RTIC offers a
 zero-cost abstraction to concurrency.
 
 = Priority
-<priority>
+
 Priorities in RTIC are specified using the `priority = N` (where N is a
 positive number) argument passed to the `#[task]` attribute. All
 `#[task]`s can have a priority. If the priority of a task is not
@@ -63,11 +61,9 @@ Priorities in RTIC follow a higher value = more important scheme. For
 examples, a task with priority 2 will preempt a task with priority 1.
 
 = An RTIC application example
-<an-rtic-application-example>
+
 To give a taste of RTIC, the following example contains commonly used
 features. In the following sections we will go through each feature in
 detail.
 
-```rust
-{{#include ../../../../examples/lm3s6965/examples/common.rs}}
-```
+#include-code("../../examples/lm3s6965/examples/common.rs")

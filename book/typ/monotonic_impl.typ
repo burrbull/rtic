@@ -2,13 +2,14 @@
 
 #h1((en: [The magic behind Monotonics]
 ))
+<implementing-monotonic>
 
 Internally, all monotonics use a #link(<the-timer-queue>)[Timer Queue],
 which is a priority queue with entries describing the time at which
 their respective `Future`s should complete.
 
 = Implementing a `Monotonic` timer for scheduling
-<implementing-a-monotonic-timer-for-scheduling>
+
 The #link("https://docs.rs/rtic-time/latest/rtic_time")[`rtic-time`]
 framework is flexible because it can use any timer which has
 compare-match and optionally supporting overflow interrupts for
@@ -56,20 +57,22 @@ Please read and refer to
 which provides helper methods and examples for implementing this logic.
 
 = Contributing
-<contributing>
+
 Contributing new implementations of `Monotonic` can be done in multiple
-ways: \* Implement the trait behind a feature flag in
-#link("https://github.com/rtic-rs/rtic/blob/master/rtic-monotonics")[`rtic-monotonics`],
-and create a PR for them to be included in the main RTIC repository.
-This way, the implementations of are in-tree, RTIC can guarantee their
-correctness, and can update them in the case of a new release. \*
-Implement the changes in an external repository. Doing so will not have
-them included in
-#link("https://github.com/rtic-rs/rtic/blob/master/rtic-monotonics")[`rtic-monotonics`],
-but may make it easier to do so in the future.
+ways:
+- Implement the trait behind a feature flag in
+  #link("https://github.com/rtic-rs/rtic/blob/master/rtic-monotonics")[`rtic-monotonics`],
+  and create a PR for them to be included in the main RTIC repository.
+  This way, the implementations of are in-tree, RTIC can guarantee their
+  correctness, and can update them in the case of a new release.
+- Implement the changes in an external repository. Doing so will not have
+  them included in
+  #link("https://github.com/rtic-rs/rtic/blob/master/rtic-monotonics")[`rtic-monotonics`],
+  but may make it easier to do so in the future.
 
 = The timer queue
 <the-timer-queue>
+
 The timer queue is implemented as a list based priority queue, where
 list-nodes are statically allocated as part of the `Future` created when
 `await`-ing a Future created when waiting for the monotonic. Thus, the
@@ -77,7 +80,7 @@ timer queue is infallible at run-time (its size and allocation are
 determined at compile time).
 
 Similarly the channels implementation, the timer-queue implementation
-relies on a global #emph[Critical Section] (CS) for race protection. For
+relies on a global _Critical Section_ (CS) for race protection. For
 the examples a CS implementation is provided by a platform crate, for
 example `cortex-m/critical-section-single-core` or
 `esp32c3/critical-section`.
