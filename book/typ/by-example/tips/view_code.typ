@@ -35,15 +35,15 @@ whole program!) of the #emph[last built] (via `cargo build` or
 `cargo check`) RTIC application. The expanded code is not pretty printed
 by default, so you'll want to run `rustfmt` on it before you read it.
 
-```shell
+```console
 $ cargo build --example smallest --target thumbv7m-none-eabi
 ```
 
-```shell
+```console
 $ rustfmt target/rtic-expansion.rs
 ```
 
-```shell
+```console
 $ tail target/rtic-expansion.rs
 ```
 
@@ -77,10 +77,10 @@ This sub-command will expand _all_ the macros, including the
 `#[rtic::app]` attribute, and modules in your crate and print the output
 to the console.
 
-```shell
+```console
 # produces the same output as before
 ```
 
-```shell
+```console
 cargo expand --example smallest | tail
 ```

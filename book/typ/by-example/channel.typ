@@ -63,11 +63,10 @@ For a complete example:
 
 #include-code("../../examples/lm3s6965/examples/async-channel.rs")
 
-```shell
+```console
 $ cargo xtask qemu --verbose --example async-channel
 ```
-
-#include-code("../../ci/expected/lm3s6965/async-channel.run", lang: "shell")
+#include-code("../../ci/expected/lm3s6965/async-channel.run")
 
 Also sender endpoint can be awaited. In case the channel capacity has
 not yet been reached, `await`-ing the sender can progress immediately,
@@ -89,11 +88,10 @@ assumed. (The presented order here applies only to the current
 implementation, and may change between RTIC framework releases.)
 ]
 
-#include-code(
-    lang: "shell",
-    prefix: "$ cargo xtask qemu --verbose --example async-channel-done\n",
-    "../../ci/expected/lm3s6965/async-channel-done.run",
-)
+```console
+$ cargo xtask qemu --verbose --example async-channel-done"
+```
+#include-code("../../ci/expected/lm3s6965/async-channel-done.run")
 
 = Error handling
 
@@ -103,11 +101,10 @@ different types of shutdown operations.
 
 #include-code("../../examples/lm3s6965/examples/async-channel-no-sender.rs")
 
-#include-code(
-    lang: "shell",
-    prefix: "$ cargo xtask qemu --verbose --example async-channel-no-sender\n",
-    "../../ci/expected/lm3s6965/async-channel-no-sender.run"
-)
+```console
+$ cargo xtask qemu --verbose --example async-channel-no-sender
+```
+#include-code("../../ci/expected/lm3s6965/async-channel-no-sender.run")
 
 Similarly, `await`-ing on a send channel results in an error in case the
 receiver has been dropped. This allows to gracefully implement
@@ -119,11 +116,10 @@ sending it).
 
 #include-code("../../examples/lm3s6965/examples/async-channel-no-receiver.rs")
 
-#include-code(
-    lang: "shell",
-    prefix: "$ cargo xtask qemu --verbose --example async-channel-no-receiver\n",
-    "../../ci/expected/lm3s6965/async-channel-no-receiver.run",
-)
+```console
+$ cargo xtask qemu --verbose --example async-channel-no-receiver
+```
+#include-code("../../ci/expected/lm3s6965/async-channel-no-receiver.run")
 
 = Try API
 <try-api>
@@ -136,8 +132,7 @@ This API is exposed through `Receiver::try_recv` and `Sender::try_send`.
 
 #include-code("../../examples/lm3s6965/examples/async-channel-try.rs")
 
-#include-code(
-    lang: "shell",
-    prefix: "$ cargo xtask qemu --verbose --example async-channel-try\n",
-    "../../ci/expected/lm3s6965/async-channel-try.run",
-)
+```console
+$ cargo xtask qemu --verbose --example async-channel-try
+```
+#include-code("../../ci/expected/lm3s6965/async-channel-try.run")

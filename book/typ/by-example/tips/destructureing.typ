@@ -9,8 +9,7 @@ resource struct:
 
 #include-code("../../examples/lm3s6965/examples/destructure.rs")
 
-#include-code(
-    lang: "shell",
-    prefix: "$ cargo xtask qemu --verbose --example destructure\n",
-    "../../ci/expected/lm3s6965/destructure.run",
-)
+```console
+$ cargo xtask qemu --verbose --example destructure
+```
+#include-code("../../ci/expected/lm3s6965/destructure.run")

@@ -20,8 +20,7 @@ for lock-free access to the shared queue.
 
 Running this program produces the expected output.
 
-#include-code(
-    lang: "shell",
-    prefix: "$ cargo xtask qemu --verbose --example static-resources-in-init\n",
-    "../../ci/expected/lm3s6965/static-resources-in-init.run",
-)
+```console
+$ cargo xtask qemu --verbose --example static-resources-in-init
+```
+#include-code("../../ci/expected/lm3s6965/static-resources-in-init.run")

@@ -19,11 +19,10 @@ The example below shows that `idle` runs after `init`.
 
 #include-code("../../examples/lm3s6965/examples/idle.rs")
 
-```shell
+```console
 $ cargo xtask qemu --verbose --example idle
 ```
-
-#include-code("../../ci/expected/lm3s6965/idle.run", lang: "shell")
+#include-code("../../ci/expected/lm3s6965/idle.run")
 
 By default, the RTIC `idle` task does not try to optimize for any
 specific targets.
@@ -50,11 +49,10 @@ with
 
 #include-code("../../examples/lm3s6965/examples/idle-wfi.rs")
 
-```shell
+```console
 $ cargo xtask qemu --verbose --example idle-wfi
 ```
-
-#include-code("../../ci/expected/lm3s6965/idle-wfi.run", lang: "shell")
+#include-code("../../ci/expected/lm3s6965/idle-wfi.run")
 
 #quote(block: true)[
 *Notice*: The `idle` task cannot be used together with

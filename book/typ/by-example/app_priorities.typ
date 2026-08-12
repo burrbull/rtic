@@ -48,11 +48,10 @@ The following example showcases the priority based scheduling of tasks:
 
 #include-code("../../examples/lm3s6965/examples/preempt.rs")
 
-#include-code(
-  lang: "shell",
-  prefix: "$ cargo xtask qemu --verbose --example preempt\n",
-  "../../ci/expected/lm3s6965/preempt.run"
-)
+```console
+$ cargo xtask qemu --verbose --example preempt
+```
+#include-code("../../ci/expected/lm3s6965/preempt.run")
 
 Note that the task `bar` does _not_ preempt task `baz` because its
 priority is the _same_ as `baz`'s. The higher priority task `bar`

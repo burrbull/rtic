@@ -14,8 +14,7 @@ including the interrupt vector table.
 
 For a minimal example you can expect something like:
 
-```shell
+```console
 $ cargo xtask size --example smallest --backend thumbv7
 ```
-
-#include-code("../../ci/expected/lm3s6965/smallest.size", lang: "shell")
+#include-code("../../ci/expected/lm3s6965/smallest.size", lang: "txt")

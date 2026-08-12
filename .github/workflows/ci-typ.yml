@@ -28,28 +28,33 @@ jobs:
         id: cache-cargo-typst
         with:
           path: ~/cargo-bin
-          key: cache-cargo-typst
+          key: cache-cargo-typst-0.15.1
       - name: Install Typst
         if: steps.cache-cargo-typst.outputs.cache-hit != 'true'
         uses: actions-rs/install@v0.1
         with:
           crate: typst-cli
           version: latest
+      - name: Install Just
+        if: steps.cache-cargo-typst.outputs.cache-hit != 'true'
+        uses: actions-rs/install@v0.1
+        with:
+          crate: just
+          version: latest
       - name: Copy typst to cache directory
         if: steps.cache-cargo-typst.outputs.cache-hit != 'true'
         run: |
           mkdir -p ~/cargo-bin
+          cp ~/.cargo/bin/just ~/cargo-bin
           cp ~/.cargo/bin/typst ~/cargo-bin
       - name: Put new cargo binary directory into path
         run: echo "~/cargo-bin" >> $GITHUB_PATH
 
-      - name: Build original (English) book
-        run: |
-          typst compile book/typ/book.typ --root=. --input lang=en --input target=html book/en/book --features bundle,html -f bundle
-          typst compile book/typ/book.typ --root=. --input lang=en --input target=pdf book/en/book/book_en.pdf
+      - name: Build book
+        run: just build
 
       - name: Check links
-        run: linkchecker book/en/book
+        run: just check-links
 
       - name: Deploy book
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}

@@ -50,11 +50,10 @@ and `idle`, each having access to its own `#[local]` resource.
 
 Running the example:
 
-#include-code(
-    lang: "shell",
-    prefix: "$ cargo xtask qemu --verbose --example locals\n",
-    "../../ci/expected/lm3s6965/locals.run",
-)
+```console
+$ cargo xtask qemu --verbose --example locals
+```
+#include-code("../../ci/expected/lm3s6965/locals.run")
 
 Local resources in `#[init]` and `#[idle]` have `'static` lifetimes.
 This is safe since both tasks are not re-entrant.
@@ -80,7 +79,7 @@ You can run the application, but as the example is designed merely to
 showcase the lifetime properties there is no output (it suffices to
 build the application).
 
-```shell
+```console
 $ cargo build --target thumbv7m-none-eabi --example declared_locals
 ```
 
@@ -112,11 +111,10 @@ critical section created by the lowest priority handler.
 
 #include-code("../../examples/lm3s6965/examples/lock.rs")
 
-#include-code(
-    lang: "shell",
-    prefix: "$ cargo xtask qemu --verbose --example lock\n",
-    "../../ci/expected/lm3s6965/lock.run",
-)
+```console
+$ cargo xtask qemu --verbose --example lock
+```
+#include-code("../../ci/expected/lm3s6965/lock.run")
 
 Types of `#[shared]` resources have to be
 #link("https://doc.rust-lang.org/stable/core/marker/trait.Send.html")[`Send`].
@@ -128,11 +126,10 @@ taken as tuples. The following examples show this in use:
 
 #include-code("../../examples/lm3s6965/examples/multilock.rs")
 
-#include-code(
-    lang: "shell",
-    prefix: "$ cargo xtask qemu --verbose --example multilock\n",
-    "../../ci/expected/lm3s6965/multilock.run",
-)
+```console
+$ cargo xtask qemu --verbose --example multilock
+```
+#include-code("../../ci/expected/lm3s6965/multilock.run")
 
 = Only shared (`&-`) access
 
@@ -162,11 +159,10 @@ that run at different priorities without any kind of lock.
 
 #include-code("../../examples/lm3s6965/examples/only-shared-access.rs")
 
-#include-code(
-    lang: "shell",
-    prefix: "$ cargo xtask qemu --verbose --example only-shared-access\n",
-    "../../ci/expected/lm3s6965/only-shared-access.run",
-)
+```console
+$ cargo xtask qemu --verbose --example only-shared-access
+```
+#include-code("../../ci/expected/lm3s6965/only-shared-access.run")
 
 = Lock-free access of shared resources
 
@@ -195,8 +191,7 @@ instead.
 
 #include-code("../../examples/lm3s6965/examples/lock-free.rs")
 
-#include-code(
-    lang: "shell",
-    prefix: "$ cargo xtask qemu --verbose --example lock-free\n",
-    "../../ci/expected/lm3s6965/lock-free.run",
-)
+```console
+$ cargo xtask qemu --verbose --example lock-free
+```
+#include-code("../../ci/expected/lm3s6965/lock-free.run")

@@ -18,8 +18,7 @@ The number of arguments to a task is not limited:
 
 #include-code("../../examples/message_passing.rs")
 
-#include-code(
-    lang: "shell",
-    prefix: "$ cargo xtask qemu --verbose --example message_passing\n",
-    "../../ci/expected/message_passing.run",
-)
+```console
+$ cargo xtask qemu --verbose --example message_passing
+```
+#include-code("../../ci/expected/message_passing.run")

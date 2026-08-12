@@ -26,8 +26,7 @@ bytes.
 
 #include-code("../../examples/lm3s6965/examples/pool.rs")
 
-#include-code(
-    lang: "shell",
-    prefix: "$ cargo xtask qemu --verbose --example pool\n",
-    "../../ci/expected/lm3s6965/pool.run",
-)
+```console
+$ cargo xtask qemu --verbose --example pool
+```
+#include-code("../../ci/expected/lm3s6965/pool.run")

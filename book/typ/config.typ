@@ -1,3 +1,5 @@
+#import "../../typbook/lib.typ": insert-code
+
 #let default_lang = sys.inputs.at("default-lang", default: "en")
 #let lang = sys.inputs.at("lang", default: default_lang)
 #let goal = sys.inputs.at("goal", default: "publish")
@@ -70,34 +72,27 @@
   }
 }
 
-#let include-code(path, lang: "rust", block: true, prefix: "", suffix: "", anchor: none, lines: none) = {
-  let offset = 0
-  let file = read(path)
-  let code = if type(anchor) == str {
-    let lines = file.split("\n")
-    let left = lines.position(l => { regex("ANCHOR:\s+"+anchor) in l })
-    offset = left
-    let right = lines.position(l => { regex("ANCHOR_END:\s+"+anchor) in l })
-    lines.slice(left+1, right).join("\n")
-  } else if type(lines) == int {
-    offset = lines - 1
-    file.split("\n").at(lines - 1)
-  } else if type(lines) == array {
-    offset = lines.at(0) - 1
-    file.split("\n").slice(lines.at(0) - 1, lines.at(1)).join("\n")
-  } else {
-    file
-  }
-  if tgt == "pdf" {
-    import "@preview/codly:1.3.0": codly
-    if lang == "rust" {
-      codly(number-format: numbering.with("1"))
-    }
-    codly(offset: offset - prefix.matches("\n").len())
-    raw(prefix + code + suffix, lang: lang, block: block)
-    codly(number-format: none)
-  } else {
-    raw(prefix + code + suffix, lang: lang, block: block)
-  }
-}
+#let insert-code = insert-code.with(tgt: tgt)
 
+#let include-code(path, lang: none, block: true, prefix: "", suffix: "", anchor: none, lines: none) = {
+  if lang != none {
+  } else if path.ends-with(".rs") {
+    lang = "rust"
+  } else if path.ends-with(".c") {
+    lang = "c"
+  } else if path.ends-with(".toml") {
+    lang = "toml"
+  } else if path.ends-with(".run") {
+    lang = "txt"
+  }
+  let full_code = read(path)
+  insert-code(
+    prefix+full_code+suffix,
+    lang: lang,
+    block: block,
+    anchor: anchor,
+    lines: lines,
+    offset: - prefix.matches("\n").len(),
+    line-numbers: lang in ("c", "rust"),
+  )
+}

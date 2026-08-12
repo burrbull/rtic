@@ -263,7 +263,7 @@ either, all, or any combination of possible futures (allowing e.g.,
 timeouts and/or asynchronous errors to be promptly handled).
 
 = RTIC the model
-//<rtic-the-model>
+<rtic-the-model>
 
 An RTIC `app` is a declarative and executable system model for
 single-core applications, defining a set of (`local` and `shared`)

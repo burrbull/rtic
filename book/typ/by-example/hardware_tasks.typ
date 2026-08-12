@@ -37,8 +37,7 @@ bound to an interrupt handler.
 
 #include-code("../../examples/lm3s6965/examples/hardware.rs")
 
-#include-code(
-    lang: "shell",
-    prefix: "$ cargo xtask qemu --verbose --example hardware\n",
-    "../../ci/expected/lm3s6965/hardware.run",
-)
+```console
+$ cargo xtask qemu --verbose --example hardware
+```
+#include-code("../../ci/expected/lm3s6965/hardware.run")

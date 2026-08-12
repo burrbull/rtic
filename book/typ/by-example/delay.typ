@@ -47,11 +47,10 @@ async fn foo(_cx: foo::Context) {
 A complete example
 #include-code("../../examples/lm3s6965/examples/async-delay.rs")
 
-```shell
+```console
 $ cargo xtask qemu --verbose --example async-delay
 ```
-
-#include-code("../../ci/expected/lm3s6965/async-delay.run", lang: "shell")
+#include-code("../../ci/expected/lm3s6965/async-delay.run")
 
 #quote(block: true)[
 Interested in contributing new implementations of
@@ -128,8 +127,7 @@ the timeout. For the third iteration, with `n == 2`, `hal_get` will take
 A complete example
 #include-code("../../examples/lm3s6965/examples/async-timeout.rs")
 
-#include-code(
-    lang: "shell",
-    prefix: "$ cargo xtask qemu --verbose --example async-timeout\n",
-    "../../ci/expected/lm3s6965/async-timeout.run",
-)
+```console
+$ cargo xtask qemu --verbose --example async-timeout
+```
+#include-code("../../ci/expected/lm3s6965/async-timeout.run")

@@ -53,11 +53,10 @@ See the following example:
 
 #include-code("../../examples/lm3s6965/examples/spawn.rs")
 
-#include-code(
-    lang: "shell",
-    prefix: "$ cargo xtask qemu --verbose --example spawn\n",
-    "../../ci/expected/lm3s6965/spawn.run",
-)
+```console
+$ cargo xtask qemu --verbose --example spawn
+```
+#include-code("../../ci/expected/lm3s6965/spawn.run")
 
 You may `spawn` a _software_ task again, given that it has
 run-to-completion (returned).
@@ -73,11 +72,10 @@ in this case leaves the _future_ in a _completed_ state.
 
 #include-code("../../examples/lm3s6965/examples/spawn_loop.rs")
 
-#include-code(
-    lang: "shell",
-    prefix: "$ cargo xtask qemu --verbose --example spawn_loop\n",
-    "../../ci/expected/lm3s6965/spawn_loop.run",
-)
+```console
+$ cargo xtask qemu --verbose --example spawn_loop
+```
+#include-code("../../ci/expected/lm3s6965/spawn_loop.run")
 
 An attempt to `spawn` an already spawned task (running) task will result
 in an error. Notice, the that the error is reported before the `foo`
@@ -91,11 +89,10 @@ _completed_ state is considered an error.
 
 #include-code("../../examples/lm3s6965/examples/spawn_err.rs")
 
-#include-code(
-    lang: "shell",
-    prefix: "$ cargo xtask qemu --verbose --example spawn_err\n",
-    "../../ci/expected/lm3s6965/spawn_err.run",
-)
+```console
+$ cargo xtask qemu --verbose --example spawn_err
+```
+#include-code("../../ci/expected/lm3s6965/spawn_err.run")
 
 = Passing arguments
 
@@ -103,11 +100,10 @@ You can also pass arguments at spawn as follows.
 
 #include-code("../../examples/lm3s6965/examples/spawn_arguments.rs")
 
-#include-code(
-    lang: "shell",
-    prefix: "$ cargo xtask qemu --verbose --example spawn_arguments\n",
-    "../../ci/expected/lm3s6965/spawn_arguments.run",
-)
+```console
+$ cargo xtask qemu --verbose --example spawn_arguments
+```
+#include-code("../../ci/expected/lm3s6965/spawn_arguments.run")
 
 = Divergent tasks
 
@@ -134,11 +130,10 @@ bound.
 
 #include-code("../../examples/lm3s6965/examples/zero-prio-task.rs")
 
-#include-code(
-    lang: "shell",
-    prefix: "$ cargo xtask qemu --verbose --example zero-prio-task\n",
-    "../../ci/expected/lm3s6965/zero-prio-task.run",
-)
+```console
+$ cargo xtask qemu --verbose --example zero-prio-task
+```
+#include-code("../../ci/expected/lm3s6965/zero-prio-task.run")
 
 #quote(block: true)[
 *Notice*: _software_ task at zero priority cannot co-exist

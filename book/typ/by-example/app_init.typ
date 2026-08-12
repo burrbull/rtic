@@ -37,8 +37,7 @@ an ultra-slim application you can explicitly set `peripherals` to
 Running the example will print `init` to the console and then exit the
 QEMU process.
 
-```shell
+```console
 $ cargo xtask qemu --verbose --example init
 ```
-
-#include-code("../../ci/expected/lm3s6965/init.run", lang: "shell")
+#include-code("../../ci/expected/lm3s6965/init.run")
